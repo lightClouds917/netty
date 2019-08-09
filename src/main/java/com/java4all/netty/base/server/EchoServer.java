@@ -1,4 +1,4 @@
-package com.java4all.netty.server;
+package com.java4all.netty.base.server;
 
 
 import io.netty.bootstrap.ServerBootstrap;

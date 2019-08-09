@@ -1,4 +1,4 @@
-package com.java4all.netty.client;
+package com.java4all.netty.base.client;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.java4all.netty.constant.TransactionType;
