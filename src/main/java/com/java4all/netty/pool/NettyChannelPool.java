@@ -11,7 +11,10 @@ import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
 import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
+import io.netty.util.Attribute;
+import java.util.Map;
 import java.util.Random;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * @author IT云清
@@ -23,7 +26,7 @@ public class NettyChannelPool {
     private static final int MAX_CHANNEL_COUNT = 4;
 
 
-    public Channel syncGetChannel(){
+    public Channel syncGetChannel() throws InterruptedException {
         int index = new Random().nextInt(MAX_CHANNEL_COUNT);
         Channel channel = channels[index];
         if(null != channel && channel.isActive()){
@@ -42,7 +45,7 @@ public class NettyChannelPool {
         return channel;
     }
 
-    private Channel connectToServer(){
+    private Channel connectToServer() throws InterruptedException {
         NioEventLoopGroup group = new NioEventLoopGroup();
         Bootstrap bootstrap = new Bootstrap();
         bootstrap.group(group)
@@ -54,12 +57,15 @@ public class NettyChannelPool {
                     @Override
                     protected void initChannel(SocketChannel ch) throws Exception {
                         ch.pipeline()
-                                .addLast(new EchoClientHandler())
+                                .addLast(new EchoClientHandler());
                         //TODO 待修改
                     }
                 });
         ChannelFuture future = bootstrap.connect("localhost", 7777);
         Channel channel = future.sync().channel();
+        Attribute<Map<Integer, Object>> attribute = channel.attr(ChannelUtils.DATA_MAP_ATTRIBUTEKEY);
+        ConcurrentHashMap<Integer, Object> dataMap = new ConcurrentHashMap<>(8);
+        attribute.set(dataMap);
         return channel;
     }
 
