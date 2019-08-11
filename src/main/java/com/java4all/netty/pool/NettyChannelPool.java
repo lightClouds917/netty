@@ -57,6 +57,7 @@ public class NettyChannelPool {
                     @Override
                     protected void initChannel(SocketChannel ch) throws Exception {
                         ch.pipeline()
+                                .addLast(new SelfDefineEncodeHandler())
                                 .addLast(new EchoClientHandler());
                         //TODO 待修改
                     }
