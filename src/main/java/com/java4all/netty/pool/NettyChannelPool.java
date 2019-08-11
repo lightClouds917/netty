@@ -1,6 +1,16 @@
 package com.java4all.netty.pool;
 
+import com.java4all.netty.base.client.EchoClientHandler;
+import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.Channel;
+import io.netty.channel.ChannelFuture;
+import io.netty.channel.ChannelInitializer;
+import io.netty.channel.ChannelOption;
+import io.netty.channel.nio.NioEventLoopGroup;
+import io.netty.channel.socket.SocketChannel;
+import io.netty.channel.socket.nio.NioSocketChannel;
+import io.netty.handler.logging.LogLevel;
+import io.netty.handler.logging.LoggingHandler;
 import java.util.Random;
 
 /**
@@ -19,10 +29,38 @@ public class NettyChannelPool {
         if(null != channel && channel.isActive()){
             return channel;
         }
+        //TODO why
+        synchronized (locks[index]){
+            channel = channels[index];
+            if(null != channel && channel.isActive()){
+                return channel;
+            }
+            channel = this.connectToServer();
+            channels[index] = channel;
+        }
 
+        return channel;
+    }
 
-
-        return null;
+    private Channel connectToServer(){
+        NioEventLoopGroup group = new NioEventLoopGroup();
+        Bootstrap bootstrap = new Bootstrap();
+        bootstrap.group(group)
+                .channel(NioSocketChannel.class)
+                .option(ChannelOption.SO_KEEPALIVE,Boolean.TRUE)
+                .option(ChannelOption.TCP_NODELAY,Boolean.TRUE)
+                .handler(new LoggingHandler(LogLevel.INFO))
+                .handler(new ChannelInitializer<SocketChannel>() {
+                    @Override
+                    protected void initChannel(SocketChannel ch) throws Exception {
+                        ch.pipeline()
+                                .addLast(new EchoClientHandler())
+                        //TODO 待修改
+                    }
+                });
+        ChannelFuture future = bootstrap.connect("localhost", 7777);
+        Channel channel = future.sync().channel();
+        return channel;
     }
 
 
