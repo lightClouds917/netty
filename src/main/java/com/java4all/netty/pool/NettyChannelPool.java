@@ -18,6 +18,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * @author IT云清
+ * 参考：https://www.jianshu.com/p/7132d84c2461
  */
 public class NettyChannelPool {
 
