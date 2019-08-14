@@ -30,7 +30,7 @@ public class TxServer {
                 .childHandler(new ChannelInitializer<SocketChannel>() {
                     @Override
                     protected void initChannel(SocketChannel ch) throws Exception {
-                        ch.pipeline().addLast(new EchoServerHandler());
+                        ch.pipeline().addLast(new TxClientHandler());
                     }
                 });
         try {
@@ -39,11 +39,11 @@ public class TxServer {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }finally {
-            try {
-                group.shutdownGracefully().sync();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+//            try {
+//                group.shutdownGracefully().sync();
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }
         }
     }
 

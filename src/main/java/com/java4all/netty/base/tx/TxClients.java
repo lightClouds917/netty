@@ -23,7 +23,7 @@ public class TxClients {
     }
 
     public static void test() throws JsonProcessingException {
-        for(int i = 0;i <= 2;i++){
+        for(int i = 0;i <= 1;i++){
             Map<String,Object> map  = new HashMap<>(8);
             map.put("xid","xid"+i);
             if(i == 1 || i == 3 || i == 5){
