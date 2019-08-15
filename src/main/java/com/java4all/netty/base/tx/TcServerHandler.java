@@ -7,8 +7,11 @@ import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import io.netty.util.CharsetUtil;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -18,6 +21,7 @@ import org.slf4j.LoggerFactory;
 public class TcServerHandler extends ChannelInboundHandlerAdapter {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(TcServerHandler.class);
+    private static ConcurrentHashMap<String,List<TxSession>> transactions = new ConcurrentHashMap();
 
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
@@ -36,15 +40,22 @@ public class TcServerHandler extends ChannelInboundHandlerAdapter {
         String resourceId = txSession.getResourceId();
         String groupId = txSession.getGroupId();
 
+        if(transactions.containsKey(groupId)){
+            transactions.get(groupId).add(txSession);
+        }else {
+            List<TxSession> txSessions = new ArrayList<>();
+            txSessions.add(txSession);
+            transactions.put(groupId,txSessions);
+        }
 
         //接收不同的事务组，每个事务组内单独判断
-
 
         switch (command){
             case TransactionType.COMMIT:
                 LOGGER.info("【server】groupId={},xid={},resourceId={}，执行{}操作",xid,resourceId,TransactionType.COMMIT);
                 break;
             case TransactionType.ROLLBACK:
+                //TODO 需要通知这个事务组的所有事务回滚
                 LOGGER.info("【server】groupId={},xid={},resourceId={}，执行{}操作",xid,resourceId,TransactionType.ROLLBACK);
                 break;
             default:
