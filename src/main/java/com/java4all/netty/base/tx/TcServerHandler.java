@@ -9,8 +9,11 @@ import io.netty.channel.ChannelInboundHandlerAdapter;
 import io.netty.util.CharsetUtil;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.TreeSet;
 import java.util.concurrent.ConcurrentHashMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,7 +24,7 @@ import org.slf4j.LoggerFactory;
 public class TcServerHandler extends ChannelInboundHandlerAdapter {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(TcServerHandler.class);
-    private static ConcurrentHashMap<String,List<TxSession>> transactions = new ConcurrentHashMap();
+    private static ConcurrentHashMap<String,Set<TxSession>> transactions = new ConcurrentHashMap();
 
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
@@ -43,7 +46,7 @@ public class TcServerHandler extends ChannelInboundHandlerAdapter {
         if(transactions.containsKey(groupId)){
             transactions.get(groupId).add(txSession);
         }else {
-            List<TxSession> txSessions = new ArrayList<>();
+            Set<TxSession> txSessions = new HashSet<>();
             txSessions.add(txSession);
             transactions.put(groupId,txSessions);
         }
