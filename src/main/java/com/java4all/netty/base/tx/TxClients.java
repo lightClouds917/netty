@@ -2,7 +2,6 @@ package com.java4all.netty.base.tx;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.java4all.netty.base.client.EchoClientHandler;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.buffer.Unpooled;
 import io.netty.channel.Channel;
@@ -10,29 +9,36 @@ import io.netty.channel.ChannelInitializer;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioSocketChannel;
 import io.netty.util.CharsetUtil;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * @author IT云清
  */
 public class TxClients {
+
+    private static final Integer PARTICIPANT_COUNT = 10;
+
     public static void main(String[]args) throws JsonProcessingException {
         test();
     }
 
+    /**
+     * 模拟参与者节点 向 TC汇报消息
+     * @throws JsonProcessingException
+     */
     public static void test() throws JsonProcessingException {
-        for(int i = 0;i <= 10;i++){
-            Map<String,Object> map  = new HashMap<>(8);
-            map.put("xid","xid"+i);
-            if(i == 1 || i == 3 || i == 5){
-                map.put("command","commit");
+        for(int i = 0;i <= PARTICIPANT_COUNT;i++){
+            TxSession txSession = new TxSession();
+            txSession.setXid("xid"+i);
+            txSession.setCommand("re"+i);
+            txSession.setGroupId("txOne");
+            if(i == 1 || i == 3 || i == 5 || i == 7){
+                txSession.setCommand("commit");
             }else {
-                map.put("command","rollback");
+                txSession.setCommand("rollback");
             }
-            map.put("resourceId","re"+i);
+
             ObjectMapper mapper = new ObjectMapper();
-            String msg = mapper.writeValueAsString(map);
+            String msg = mapper.writeValueAsString(txSession);
             Channel channel = getChannel();
             channel.writeAndFlush(Unpooled.copiedBuffer(msg, CharsetUtil.UTF_8));
             try {

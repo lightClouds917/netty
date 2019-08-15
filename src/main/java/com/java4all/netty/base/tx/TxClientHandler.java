@@ -37,13 +37,14 @@ public class TxClientHandler extends ChannelInboundHandlerAdapter{
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
         ByteBuf in = (ByteBuf) msg;
         ObjectMapper mapper = new ObjectMapper();
-        Map map = mapper.readValue(in.toString(CharsetUtil.UTF_8), Map.class);
-        String command = map.get("command").toString();
-        String xid = map.get("xid").toString();
-        String resourceId = map.get("resourceId").toString();
-        String response = map.get("response").toString();
+        TxSession txSession = mapper.readValue(in.toString(CharsetUtil.UTF_8), TxSession.class);
+        String command = txSession.getCommand();
+        String xid = txSession.getXid();
+        String resourceId = txSession.getResourceId();
+        String groupId = txSession.getGroupId();
+        String response = txSession.getResponse();
 
-        LOGGER.info("reveive message:xid={},resourceId={},has {}",xid,resourceId,response);
+        LOGGER.info("reveive message:groupId={},xid={},resourceId={},has {}",groupId,xid,resourceId,response);
 
     }
 

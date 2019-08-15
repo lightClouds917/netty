@@ -15,9 +15,9 @@ import org.slf4j.LoggerFactory;
 /**
  * @author IT云清
  */
-public class TxServerHandler extends ChannelInboundHandlerAdapter {
+public class TcServerHandler extends ChannelInboundHandlerAdapter {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(TxServerHandler.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(TcServerHandler.class);
 
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
@@ -29,30 +29,32 @@ public class TxServerHandler extends ChannelInboundHandlerAdapter {
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
         ByteBuf in = (ByteBuf) msg;
         ObjectMapper mapper = new ObjectMapper();
-        Map map = mapper.readValue(in.toString(CharsetUtil.UTF_8), Map.class);
-        String command = map.get("command").toString();
-        String xid = map.get("xid").toString();
-        String resourceId = map.get("resourceId").toString();
+        TxSession txSession = mapper.readValue(in.toString(CharsetUtil.UTF_8), TxSession.class);
+
+        String command = txSession.getCommand();
+        String xid = txSession.getXid();
+        String resourceId = txSession.getResourceId();
+        String groupId = txSession.getGroupId();
+
+
+        //接收不同的事务组，每个事务组内单独判断
+
 
         switch (command){
             case TransactionType.COMMIT:
-                LOGGER.info("【server】xid为{}，resourceId为{}，执行{}操作",xid,resourceId,TransactionType.COMMIT);
+                LOGGER.info("【server】groupId={},xid={},resourceId={}，执行{}操作",xid,resourceId,TransactionType.COMMIT);
                 break;
             case TransactionType.ROLLBACK:
-                LOGGER.info("【server】xid为{}，resourceId为{}，执行{}操作",xid,resourceId,TransactionType.ROLLBACK);
+                LOGGER.info("【server】groupId={},xid={},resourceId={}，执行{}操作",xid,resourceId,TransactionType.ROLLBACK);
                 break;
             default:
-                LOGGER.info("【server】xid为{}，resourceId为{}，执行{}操作",xid,resourceId,TransactionType.REGIST);
+                LOGGER.info("【server】groupId={},xid={},resourceId={}，执行{}操作",xid,resourceId,TransactionType.REGIST);
                 break;
         }
 
-        Map<String,Object> mapRe  = new HashMap<>(8);
-        mapRe.put("xid",xid);
-        mapRe.put("command",command);
-        mapRe.put("resourceId",resourceId);
-        mapRe.put("response",command+"ed");
+        txSession.setResponse(command+"ed");
         ObjectMapper mapperRe = new ObjectMapper();
-        String msgRe = mapperRe.writeValueAsString(mapRe);
+        String msgRe = mapperRe.writeValueAsString(txSession);
         ctx.writeAndFlush(Unpooled.copiedBuffer(msgRe.getBytes()));
     }
 

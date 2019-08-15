@@ -1,7 +1,6 @@
 package com.java4all.netty.base.tx;
 
 
-import com.java4all.netty.base.server.EchoServerHandler;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelInitializer;
@@ -15,9 +14,9 @@ import org.slf4j.LoggerFactory;
 /**
  * @author IT云清
  */
-public class TxServer {
+public class TcServer {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(TxServer.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(TcServer.class);
     private final int port = 2222;
 
     public void start(){
@@ -30,7 +29,7 @@ public class TxServer {
                 .childHandler(new ChannelInitializer<SocketChannel>() {
                     @Override
                     protected void initChannel(SocketChannel ch) throws Exception {
-                        ch.pipeline().addLast(new TxServerHandler());
+                        ch.pipeline().addLast(new TcServerHandler());
                     }
                 });
         try {
@@ -48,7 +47,7 @@ public class TxServer {
     }
 
     public static void main(String[]args){
-        new TxServer().start();
+        new TcServer().start();
     }
 
 }
