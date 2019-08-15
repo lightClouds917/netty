@@ -6,7 +6,6 @@ import com.java4all.netty.base.client.EchoClientHandler;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.buffer.Unpooled;
 import io.netty.channel.Channel;
-import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioSocketChannel;
@@ -23,7 +22,7 @@ public class TxClients {
     }
 
     public static void test() throws JsonProcessingException {
-        for(int i = 0;i <= 1;i++){
+        for(int i = 0;i <= 10;i++){
             Map<String,Object> map  = new HashMap<>(8);
             map.put("xid","xid"+i);
             if(i == 1 || i == 3 || i == 5){
@@ -36,6 +35,12 @@ public class TxClients {
             String msg = mapper.writeValueAsString(map);
             Channel channel = getChannel();
             channel.writeAndFlush(Unpooled.copiedBuffer(msg, CharsetUtil.UTF_8));
+            try {
+                Thread.sleep(1000);
+                System.out.println("睡了1s");
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
 
     }
@@ -50,7 +55,7 @@ public class TxClients {
                     @Override
                     protected void initChannel(NioSocketChannel ch) throws Exception {
                         ch.pipeline()
-                                .addLast(new EchoClientHandler());
+                                .addLast(new TxClientHandler());
                     }
                 });
         try {
@@ -58,12 +63,6 @@ public class TxClients {
             return channel;
         } catch (InterruptedException e) {
             e.printStackTrace();
-        }finally {
-            try {
-                group.shutdownGracefully().sync();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
         }
         return null;
     }

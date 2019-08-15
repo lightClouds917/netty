@@ -30,7 +30,7 @@ public class TxServer {
                 .childHandler(new ChannelInitializer<SocketChannel>() {
                     @Override
                     protected void initChannel(SocketChannel ch) throws Exception {
-                        ch.pipeline().addLast(new TxClientHandler());
+                        ch.pipeline().addLast(new TxServerHandler());
                     }
                 });
         try {

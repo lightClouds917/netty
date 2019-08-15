@@ -3,6 +3,7 @@ package com.java4all.netty.base.tx;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.java4all.netty.base.server.EchoServerHandler;
 import io.netty.buffer.ByteBuf;
+import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import io.netty.util.CharsetUtil;
@@ -27,6 +28,12 @@ public class TxClientHandler extends ChannelInboundHandlerAdapter{
     }
 
     @Override
+    public void channelReadComplete(ChannelHandlerContext ctx) throws Exception {
+        super.channelReadComplete(ctx);
+        LOGGER.info("完成");
+    }
+
+    @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
         ByteBuf in = (ByteBuf) msg;
         ObjectMapper mapper = new ObjectMapper();
@@ -36,7 +43,7 @@ public class TxClientHandler extends ChannelInboundHandlerAdapter{
         String resourceId = map.get("resourceId").toString();
         String response = map.get("response").toString();
 
-        LOGGER.info("reveive message:xid={},resourceId={},has {}",xid,resourceId,resourceId);
+        LOGGER.info("reveive message:xid={},resourceId={},has {}",xid,resourceId,response);
 
     }
 
