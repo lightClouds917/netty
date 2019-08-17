@@ -43,22 +43,32 @@ public class TcServerHandler extends ChannelInboundHandlerAdapter {
         String resourceId = txSession.getResourceId();
         String groupId = txSession.getGroupId();
 
-        if(transactions.containsKey(groupId)){
-            transactions.get(groupId).add(txSession);
+        if(transactions.containsKey(xid)){
+            transactions.get(xid).add(txSession);
         }else {
-            Set<TxSession> txSessions = new HashSet<>();
-            txSessions.add(txSession);
-            transactions.put(groupId,txSessions);
+            //We need to think about concurrency，But now TC is single ,so do not need distribute lock
+            synchronized (this){
+                Set<TxSession> txSessions = new HashSet<>();
+                txSessions.add(txSession);
+                transactions.put(groupId,txSessions);
+            }
         }
 
         //接收不同的事务组，每个事务组内单独判断
+        //TODO 考虑阻塞
+        //如果有rollback的请求，要回滚xid相同的事务，事务组作用？
 
         switch (command){
             case TransactionType.COMMIT:
                 LOGGER.info("【server】groupId={},xid={},resourceId={}，执行{}操作",xid,resourceId,TransactionType.COMMIT);
                 break;
             case TransactionType.ROLLBACK:
-                //TODO 需要通知这个事务组的所有事务回滚
+                //TODO 需要通知这个xid的所有事务回滚
+                Set<TxSession> txSessionsNeedRollback = transactions.get(xid);
+                txSessionsNeedRollback.stream().forEach(session -> {
+                    //向每一个分支事务发送回滚指令
+                });
+
                 LOGGER.info("【server】groupId={},xid={},resourceId={}，执行{}操作",xid,resourceId,TransactionType.ROLLBACK);
                 break;
             default:

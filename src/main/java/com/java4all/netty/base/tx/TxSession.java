@@ -3,14 +3,16 @@ package com.java4all.netty.base.tx;
 import lombok.Data;
 
 /**
- * @author wangzhongxiang
- * @date 2019年08月15日 20:23:37
+ * @author IT云清
+ * Just a small demo ,do not nedd to distinguish between global and local transations
  */
 @Data
 public class TxSession {
 
-    /**事务id*/
+    /**全局事务id*/
     private String xid;
+    /**本地事务id*/
+    private String localTransactionId;
     /**事务组*/
     private String groupId;
     /**资源id*/
