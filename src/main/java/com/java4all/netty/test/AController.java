@@ -14,6 +14,7 @@ public class AController {
 
     @GetMapping("a")
     public String a(){
+
         return "aaa";
     }
 }
