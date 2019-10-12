@@ -16,6 +16,7 @@ public class AController {
     @Autowired
     private AService aService;
 
+    //static is good
     static ThreadLocal threadLocal = new ThreadLocal();
 
     @GetMapping("a")
