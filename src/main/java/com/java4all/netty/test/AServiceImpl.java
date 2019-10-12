@@ -13,5 +13,7 @@ public class AServiceImpl implements AService{
     @Override
     public void a() {
         System.out.println("AServiceImpl#a 线程名称="+Thread.currentThread().getName()+"threadLocal value="+threadLocal.get());
+        System.out.println("AServiceImpl#a 线程名称="+Thread.currentThread().getName()+"AController 中 static threadLocal value="+AController.threadLocal.get());
+
     }
 }

@@ -16,7 +16,7 @@ public class AController {
     @Autowired
     private AService aService;
 
-    ThreadLocal threadLocal = new ThreadLocal();
+    static ThreadLocal threadLocal = new ThreadLocal();
 
     @GetMapping("a")
     public String a(){
@@ -29,6 +29,7 @@ public class AController {
             @Override
             public void run() {
                 System.out.println("AController#a 中其他线程 线程名称="+Thread.currentThread().getName()+"threadLocal value="+threadLocal.get());
+                System.out.println("AController#a 中其他线程 线程名称="+Thread.currentThread().getName()+"static threadLocal value="+AController.threadLocal.get());
             }
         }).start();
         return "aaa";
