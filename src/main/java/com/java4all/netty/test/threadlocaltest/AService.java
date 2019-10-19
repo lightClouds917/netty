@@ -1,4 +1,4 @@
-package com.java4all.netty.test;
+package com.java4all.netty.test.threadlocaltest;
 
 /**
  * @author wangzhongxiang

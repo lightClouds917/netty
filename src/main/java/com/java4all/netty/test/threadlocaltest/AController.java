@@ -1,4 +1,4 @@
-package com.java4all.netty.test;
+package com.java4all.netty.test.threadlocaltest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
