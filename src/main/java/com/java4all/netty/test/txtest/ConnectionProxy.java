@@ -12,6 +12,7 @@ public class ConnectionProxy {
         protected final static boolean LOCK_RETRY = false;
 
         public <T> T excute(Callable<T> callable) throws Exception {
+            System.out.println("bbbbbb:"+Thread.currentThread().getName());
             if(LOCK_RETRY){
                 System.out.println("callable.call()");
                 return callable.call();
@@ -22,6 +23,7 @@ public class ConnectionProxy {
 
         protected <T> T doRetryOnLockConfict(Callable<T> callable) throws Exception {
             while (true){
+                System.out.println("cccccc:"+Thread.currentThread().getName());
                 System.out.println("doRetryOnLockConfict(callable) callable.call()");
                 return callable.call();
             }

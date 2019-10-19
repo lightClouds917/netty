@@ -19,6 +19,7 @@ public class TestCallable {
     public void test() throws Exception {
         new LockRetryPolicy("wangwang").excute(()->{
             String commit = commit();
+            System.out.println("aaaaa:"+Thread.currentThread().getName());
             return commit;
         });
     }
