@@ -34,6 +34,7 @@ public class TcServerHandler extends ChannelInboundHandlerAdapter {
 
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
+        LOGGER.info("concurrentHashMap1:{}",transactions.toString());
         ByteBuf in = (ByteBuf) msg;
         ObjectMapper mapper = new ObjectMapper();
         TxSession txSession = mapper.readValue(in.toString(CharsetUtil.UTF_8), TxSession.class);
@@ -79,6 +80,8 @@ public class TcServerHandler extends ChannelInboundHandlerAdapter {
         txSession.setResponse(command+"ed");
         ObjectMapper mapperRe = new ObjectMapper();
         String msgRe = mapperRe.writeValueAsString(txSession);
+        LOGGER.info("concurrentHashMap2:{}",transactions.toString());
+
         ctx.writeAndFlush(Unpooled.copiedBuffer(msgRe.getBytes()));
     }
 

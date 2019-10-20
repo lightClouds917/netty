@@ -34,6 +34,7 @@ public class EchoServer{
                 });
         try {
             ChannelFuture future = serverBootstrap.bind().sync();
+            LOGGER.info("【momo server】started at port:{}",port);
             future.channel().closeFuture().sync();
         } catch (InterruptedException e) {
             e.printStackTrace();
