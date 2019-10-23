@@ -20,6 +20,7 @@ import java.util.concurrent.TimeUnit;
 public class Credit {
 
     public static void main(String[]args) {
+        System.out.println("主线程开始:"+Thread.currentThread().getName()+":"+System.currentTimeMillis());
         List<FutureTask<Integer>> taskList = new ArrayList<>();
         ThreadPoolExecutor executor =
                 new ThreadPoolExecutor(4, 10, 60, TimeUnit.SECONDS,
@@ -47,6 +48,7 @@ public class Credit {
 
         executor.shutdown();
         System.out.println(String.format("总结果= %s",total));
+        System.out.println("主线程结束:"+Thread.currentThread().getName()+":"+System.currentTimeMillis());
 
     }
 
