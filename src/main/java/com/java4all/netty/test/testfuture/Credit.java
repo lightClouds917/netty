@@ -12,15 +12,19 @@ import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.ThreadPoolExecutor.AbortPolicy;
 import java.util.concurrent.TimeUnit;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author wangzhongxiang
  * @date 2019年10月23日 13:32:40
  */
 public class Credit {
+    private static final Logger LOGGER = LoggerFactory.getLogger(Credit.class);
 
     public static void main(String[]args) {
-        System.out.println("主线程开始:"+Thread.currentThread().getName()+":"+System.currentTimeMillis());
+        LOGGER.info("主线程开始：名称={}，时间={}",Thread.currentThread().getName(),System.currentTimeMillis());
+        LOGGER.error("主线程开始：名称={}，时间={}",Thread.currentThread().getName(),System.currentTimeMillis());
         List<FutureTask<Integer>> taskList = new ArrayList<>();
         ThreadPoolExecutor executor =
                 new ThreadPoolExecutor(4, 10, 60, TimeUnit.SECONDS,
