@@ -8,6 +8,7 @@ public class CallTest {
     public static void main(String[]args){
         System.out.println("锚点1+"+Thread.currentThread().getName());
         Boolean aBoolean = printAndExecute(() -> {
+            System.out.println("ACallable.call的实现");
             return true;
         });
         System.out.println("结果为："+aBoolean);
@@ -28,3 +29,10 @@ public class CallTest {
     }
 
 }
+
+//测试结果
+//锚点1+main
+//aaaaa+main
+//ACallable.call的实现
+//最终执行finally
+//结果为：true
