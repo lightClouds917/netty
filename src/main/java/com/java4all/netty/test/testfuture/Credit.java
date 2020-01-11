@@ -16,7 +16,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * @author wangzhongxiang
+ * @author IT云清
  * @date 2019年10月23日 13:32:40
  */
 public class Credit {

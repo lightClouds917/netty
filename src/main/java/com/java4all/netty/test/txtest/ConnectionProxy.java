@@ -3,7 +3,7 @@ package com.java4all.netty.test.txtest;
 import java.util.concurrent.Callable;
 
 /**
- * @author wangzhongxiang
+ * @author IT云清
  * @date 2019年10月14日 20:41:21
  */
 public class ConnectionProxy {

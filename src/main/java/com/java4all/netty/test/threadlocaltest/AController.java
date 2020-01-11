@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * @author wangzhongxiang
+ * @author IT云清
  * @date 2019年10月11日 17:54:15
  */
 @RestController
@@ -22,15 +22,15 @@ public class AController {
     @GetMapping("a")
     public String a(){
         threadLocal.set(1111111);
-        System.out.println("AController#a 线程名称="+Thread.currentThread().getName()+"threadLocal value="+threadLocal.get());
+        System.out.println("AController#a 线程名称="+Thread.currentThread().getName()+"，threadLocal value="+threadLocal.get());
 
         aService.a();
 
         new Thread(new Runnable() {
             @Override
             public void run() {
-                System.out.println("AController#a 中其他线程 线程名称="+Thread.currentThread().getName()+"threadLocal value="+threadLocal.get());
-                System.out.println("AController#a 中其他线程 线程名称="+Thread.currentThread().getName()+"static threadLocal value="+AController.threadLocal.get());
+                System.out.println("AController#a 中其他线程 线程名称="+Thread.currentThread().getName()+"，threadLocal value="+threadLocal.get());
+                System.out.println("AController#a 中其他线程 线程名称="+Thread.currentThread().getName()+"，static threadLocal value="+AController.threadLocal.get());
             }
         }).start();
         return "aaa";

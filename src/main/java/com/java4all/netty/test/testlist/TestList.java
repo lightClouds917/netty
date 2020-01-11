@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 /**
  * 验证一个全局的list，一个线程在移除元素时，另外一个线程在增加元素，会不会出现问题
  * 移除指定元素，不会出现问题
- * @author wangzhongxiang
+ * @author IT云清
  * @date 2019年10月29日 19:34:23
  */
 @RestController

@@ -3,7 +3,7 @@ package com.java4all.netty.test.txtest;
 import java.util.concurrent.Callable;
 
 /**
- * @author wangzhongxiang
+ * @author IT云清
  * @date 2019年10月19日 09:52:53
  */
 public class LockRetryPolicy extends ConnectionProxy.LockRetryPolicy{

@@ -5,7 +5,7 @@ import com.java4all.netty.test.threadlocaltest.AService;
 import org.springframework.stereotype.Service;
 
 /**
- * @author wangzhongxiang
+ * @author IT云清
  * @date 2019年10月11日 20:04:23
  */
 @Service
@@ -14,8 +14,8 @@ public class AServiceImpl implements AService {
 
     @Override
     public void a() {
-        System.out.println("AServiceImpl#a 线程名称="+Thread.currentThread().getName()+"new threadLocal value="+threadLocal.get());
-        System.out.println("AServiceImpl#a 线程名称="+Thread.currentThread().getName()+"AController 中 static threadLocal value="+ AController.threadLocal.get());
+        System.out.println("AServiceImpl#a 线程名称="+Thread.currentThread().getName()+"，new threadLocal value="+threadLocal.get());
+        System.out.println("AServiceImpl#a 线程名称="+Thread.currentThread().getName()+"，AController 中 static threadLocal value="+ AController.threadLocal.get());
 
     }
 }
