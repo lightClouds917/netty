@@ -29,7 +29,10 @@ public class EchoServer{
                 .childHandler(new ChannelInitializer<SocketChannel>() {
                     @Override
                     protected void initChannel(SocketChannel ch) throws Exception {
-                        ch.pipeline().addLast(new EchoServerHandler());
+                        ch.pipeline()
+                                .addFirst(new EchoServerHandler())
+                                .addLast(new EchoServerHandler2())
+                                .addLast(new EchoServerHandler3());
                     }
                 });
         try {

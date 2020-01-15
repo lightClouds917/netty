@@ -19,13 +19,39 @@ public class EchoServerHandler extends ChannelInboundHandlerAdapter {
     private static final Logger LOGGER = LoggerFactory.getLogger(EchoServerHandler.class);
 
     @Override
+    public void channelRegistered(ChannelHandlerContext ctx) throws Exception {
+        LOGGER.info("EchoServerHandler has channelRegistered");
+        super.channelRegistered(ctx);
+    }
+
+    @Override
+    public void channelUnregistered(ChannelHandlerContext ctx) throws Exception {
+        LOGGER.info("EchoServerHandler has channelUnregistered");
+        super.channelUnregistered(ctx);
+    }
+
+    @Override
+    public void channelInactive(ChannelHandlerContext ctx) throws Exception {
+        LOGGER.info("EchoServerHandler has channelInactive");
+        super.channelInactive(ctx);
+    }
+
+    @Override
+    public void channelReadComplete(ChannelHandlerContext ctx) throws Exception {
+        LOGGER.info("EchoServerHandler has channelReadComplete");
+        super.channelReadComplete(ctx);
+    }
+
+    @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
+        LOGGER.info("EchoServerHandler has channelActive");
         super.channelActive(ctx);
     }
 
 
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
+        LOGGER.info("EchoServerHandler has channelRead");
         ByteBuf in = (ByteBuf) msg;
         ObjectMapper mapper = new ObjectMapper();
         Map map = mapper.readValue(in.toString(CharsetUtil.UTF_8), Map.class);
