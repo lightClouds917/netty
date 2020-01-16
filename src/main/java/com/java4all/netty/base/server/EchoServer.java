@@ -30,7 +30,7 @@ public class EchoServer{
                     @Override
                     protected void initChannel(SocketChannel ch) throws Exception {
                         ch.pipeline()
-                                .addFirst(new EchoServerHandler())
+                                .addFirst(new EchoServerHandler1())
                                 .addLast(new EchoServerHandler2())
                                 .addLast(new EchoServerHandler3());
                     }

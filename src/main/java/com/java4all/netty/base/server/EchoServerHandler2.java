@@ -40,8 +40,7 @@ public class EchoServerHandler2 extends ChannelInboundHandlerAdapter{
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
         LOGGER.info("EchoServerHandler2 has channelRead");
-        LOGGER.info("EchoServerHandler2:[{}]",ctx.toString());
-//        super.channelRead(ctx, msg);
+        super.channelRead(ctx, msg);
     }
 
     @Override

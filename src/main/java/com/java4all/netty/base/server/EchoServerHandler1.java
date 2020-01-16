@@ -14,44 +14,44 @@ import org.slf4j.LoggerFactory;
 /**
  * @author IT云清
  */
-public class EchoServerHandler extends ChannelInboundHandlerAdapter {
+public class EchoServerHandler1 extends ChannelInboundHandlerAdapter {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(EchoServerHandler.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(EchoServerHandler1.class);
 
     @Override
     public void channelRegistered(ChannelHandlerContext ctx) throws Exception {
-        LOGGER.info("EchoServerHandler has channelRegistered");
+        LOGGER.info("EchoServerHandler1 has channelRegistered");
         super.channelRegistered(ctx);
     }
 
     @Override
     public void channelUnregistered(ChannelHandlerContext ctx) throws Exception {
-        LOGGER.info("EchoServerHandler has channelUnregistered");
+        LOGGER.info("EchoServerHandler1 has channelUnregistered");
         super.channelUnregistered(ctx);
     }
 
     @Override
     public void channelInactive(ChannelHandlerContext ctx) throws Exception {
-        LOGGER.info("EchoServerHandler has channelInactive");
+        LOGGER.info("EchoServerHandler1 has channelInactive");
         super.channelInactive(ctx);
     }
 
     @Override
     public void channelReadComplete(ChannelHandlerContext ctx) throws Exception {
-        LOGGER.info("EchoServerHandler has channelReadComplete");
+        LOGGER.info("EchoServerHandler1 has channelReadComplete");
         super.channelReadComplete(ctx);
     }
 
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
-        LOGGER.info("EchoServerHandler has channelActive");
+        LOGGER.info("EchoServerHandler1 has channelActive");
         super.channelActive(ctx);
     }
 
 
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
-        LOGGER.info("EchoServerHandler has channelRead");
+        LOGGER.info("EchoServerHandler1 has channelRead");
         ByteBuf in = (ByteBuf) msg;
         ObjectMapper mapper = new ObjectMapper();
         Map map = mapper.readValue(in.toString(CharsetUtil.UTF_8), Map.class);
