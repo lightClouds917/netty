@@ -9,10 +9,19 @@ import java.util.concurrent.atomic.AtomicInteger;
  */
 public class DefaultThreadFactory implements ThreadFactory {
 
+    /**线程池编号*/
     private static final AtomicInteger poolNumber = new AtomicInteger(1);
+    /**线程组*/
     private final ThreadGroup group;
+    /**线程数目*/
     private final AtomicInteger threadNumber = new AtomicInteger(1);
+    /**线程前缀*/
     private final String prefix;
+
+    public DefaultThreadFactory(ThreadGroup group, String prefix) {
+        this.group = group;
+        this.prefix = prefix;
+    }
 
     public DefaultThreadFactory() {
         SecurityManager manager = System.getSecurityManager();
