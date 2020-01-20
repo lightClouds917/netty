@@ -21,6 +21,7 @@ public class EchoServerHandlerA extends ChannelOutboundHandlerAdapter{
     @Override
     public void connect(ChannelHandlerContext ctx, SocketAddress remoteAddress,
             SocketAddress localAddress, ChannelPromise promise) throws Exception {
+        System.out.println("EchoServerHandlerA has connect");
         super.connect(ctx, remoteAddress, localAddress, promise);
     }
 
@@ -45,6 +46,7 @@ public class EchoServerHandlerA extends ChannelOutboundHandlerAdapter{
 
     @Override
     public void read(ChannelHandlerContext ctx) throws Exception {
+        System.out.println("EchoServerHandlerA has read");
         super.read(ctx);
     }
 
