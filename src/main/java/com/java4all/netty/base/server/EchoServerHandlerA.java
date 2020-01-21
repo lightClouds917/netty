@@ -54,11 +54,13 @@ public class EchoServerHandlerA extends ChannelOutboundHandlerAdapter{
     @Override
     public void write(ChannelHandlerContext ctx, Object msg, ChannelPromise promise)
             throws Exception {
+        System.out.println("EchoServerHandlerB has write");
         super.write(ctx, msg, promise);
     }
 
     @Override
     public void flush(ChannelHandlerContext ctx) throws Exception {
+        System.out.println("EchoServerHandlerB has flush");
         super.flush(ctx);
     }
 }
