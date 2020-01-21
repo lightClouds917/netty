@@ -34,7 +34,8 @@ public class EchoServer{
                                 .addLast(new EchoServerHandler2())
                                 .addLast(new EchoServerHandler3())
                                 .addLast(new EchoServerHandlerA())
-                                .addLast(new EchoServerHandlerB());
+                                .addLast(new EchoServerHandlerB())
+                                .addLast(new EchoServerHandlerC());
                     }
                 });
         try {
