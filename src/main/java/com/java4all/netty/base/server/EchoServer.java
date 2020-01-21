@@ -32,7 +32,9 @@ public class EchoServer{
                         ch.pipeline()
                                 .addFirst(new EchoServerHandler1())
                                 .addLast(new EchoServerHandler2())
-                                .addLast(new EchoServerHandler3());
+                                .addLast(new EchoServerHandler3())
+                                .addLast(new EchoServerHandlerA())
+                                .addLast(new EchoServerHandlerB());
                     }
                 });
         try {
