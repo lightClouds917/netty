@@ -10,11 +10,12 @@ import io.netty.channel.socket.nio.NioServerSocketChannel;
 import java.net.InetSocketAddress;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.InitializingBean;
 
 /**
  * @author IT云清
  */
-public class EchoServer{
+public class EchoServer implements InitializingBean{
 
     private static final Logger LOGGER = LoggerFactory.getLogger(EchoServer.class);
     private final int port = 8888;
@@ -53,8 +54,12 @@ public class EchoServer{
         }
     }
 
-    public static void main(String[]args){
+//    public static void main(String[]args){
+//        new EchoServer().start();
+//    }
+
+    @Override
+    public void afterPropertiesSet() throws Exception {
         new EchoServer().start();
     }
-
 }
