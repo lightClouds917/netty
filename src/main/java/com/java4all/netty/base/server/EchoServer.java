@@ -10,12 +10,16 @@ import io.netty.channel.socket.nio.NioServerSocketChannel;
 import java.net.InetSocketAddress;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.BeanInitializationException;
 import org.springframework.beans.factory.InitializingBean;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
 
 /**
  * @author IT云清
  */
-public class EchoServer implements InitializingBean{
+public class EchoServer implements ApplicationContextAware, InitializingBean{
 
     private static final Logger LOGGER = LoggerFactory.getLogger(EchoServer.class);
     private final int port = 8888;
@@ -60,6 +64,13 @@ public class EchoServer implements InitializingBean{
 
     @Override
     public void afterPropertiesSet() throws Exception {
-        new EchoServer().start();
+        this.start();
     }
+
+
+    @Override
+    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+
+    }
+    //https://www.cnblogs.com/feiyun126/p/7685312.html
 }

@@ -9,7 +9,7 @@ public class NettyApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(NettyApplication.class, args);
-//		new EchoServer().start();
+		EchoServer echoServer = new EchoServer();
 		System.out.println("The Netty application has run");
 	}
 
