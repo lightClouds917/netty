@@ -72,5 +72,10 @@ public class EchoServer implements ApplicationContextAware, InitializingBean{
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
 
     }
+
+    public void test(){
+        System.out.println("可用处理器数量："+Runtime.getRuntime().availableProcessors());
+    }
+
     //https://www.cnblogs.com/feiyun126/p/7685312.html
 }
