@@ -18,6 +18,7 @@ import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Component;
 
 /**
+ * Echo server
  * @author IT云清
  */
 @Component
@@ -66,11 +67,4 @@ public class EchoServer implements InitializingBean{
         this.start();
     }
 
-
-
-    public void test(){
-        System.out.println("可用处理器数量："+Runtime.getRuntime().availableProcessors());
-    }
-
-    //https://www.cnblogs.com/feiyun126/p/7685312.html
 }
