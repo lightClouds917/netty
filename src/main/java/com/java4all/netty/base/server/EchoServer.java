@@ -39,10 +39,11 @@ public class EchoServer implements InitializingBean{
                         ch.pipeline()
                                 .addFirst("handler1",new EchoServerHandler1())
                                 .addAfter("handler1","handler2",new EchoServerHandler2())
-                                .addAfter("handler1","handler3",new EchoServerHandler3())
+//                                .addAfter("handler1","handler3",new EchoServerHandler3())
                                 .addLast(new EchoServerHandlerA())
                                 .addLast(new EchoServerHandlerB())
-                                .addLast(new EchoServerHandlerC());
+                                .addLast(new EchoServerHandlerC())
+                                .replace("handler1","handler3",new EchoServerHandler3());
                     }
                 });
         try {
