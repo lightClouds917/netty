@@ -37,9 +37,9 @@ public class EchoServer implements InitializingBean{
                     @Override
                     protected void initChannel(SocketChannel ch) throws Exception {
                         ch.pipeline()
-                                .addFirst(new EchoServerHandler1())
-                                .addLast(new EchoServerHandler2())
-                                .addLast(new EchoServerHandler3())
+                                .addFirst("handler1",new EchoServerHandler1())
+                                .addAfter("handler1","handler2",new EchoServerHandler2())
+                                .addAfter("handler1","handler3",new EchoServerHandler3())
                                 .addLast(new EchoServerHandlerA())
                                 .addLast(new EchoServerHandlerB())
                                 .addLast(new EchoServerHandlerC());
