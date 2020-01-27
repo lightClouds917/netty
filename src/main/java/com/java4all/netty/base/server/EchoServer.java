@@ -15,11 +15,13 @@ import org.springframework.beans.factory.BeanInitializationException;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
+import org.springframework.stereotype.Component;
 
 /**
  * @author IT云清
  */
-public class EchoServer implements ApplicationContextAware, InitializingBean{
+@Component
+public class EchoServer implements InitializingBean{
 
     private static final Logger LOGGER = LoggerFactory.getLogger(EchoServer.class);
     private final int port = 8888;
@@ -58,20 +60,12 @@ public class EchoServer implements ApplicationContextAware, InitializingBean{
         }
     }
 
-//    public static void main(String[]args){
-//        new EchoServer().start();
-//    }
-
     @Override
     public void afterPropertiesSet() throws Exception {
         this.start();
     }
 
 
-    @Override
-    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-
-    }
 
     public void test(){
         System.out.println("可用处理器数量："+Runtime.getRuntime().availableProcessors());
