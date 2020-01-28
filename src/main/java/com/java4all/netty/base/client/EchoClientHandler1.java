@@ -15,8 +15,8 @@ import org.slf4j.LoggerFactory;
 /**
  * @author IT云清
  */
-public class EchoClientHandler extends ChannelInboundHandlerAdapter {
-    private static final Logger LOGGER = LoggerFactory.getLogger(EchoClientHandler.class);
+public class EchoClientHandler1 extends ChannelInboundHandlerAdapter {
+    private static final Logger LOGGER = LoggerFactory.getLogger(EchoClientHandler1.class);
 
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {

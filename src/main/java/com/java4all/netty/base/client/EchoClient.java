@@ -27,7 +27,8 @@ public class EchoClient {
                     @Override
                     protected void initChannel(SocketChannel ch) throws Exception {
                         ch.pipeline()
-                                .addLast(new EchoClientHandler());
+                                .addFirst("client1",new EchoClientHandler1())
+                                .addAfter("client1","client2",new EchoClientHandler2());
                     }
                 });
         try {

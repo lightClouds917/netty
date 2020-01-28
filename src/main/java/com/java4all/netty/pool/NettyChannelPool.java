@@ -1,6 +1,6 @@
 package com.java4all.netty.pool;
 
-import com.java4all.netty.base.client.EchoClientHandler;
+import com.java4all.netty.base.client.EchoClientHandler1;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelFuture;
@@ -59,7 +59,7 @@ public class NettyChannelPool {
                     protected void initChannel(SocketChannel ch) throws Exception {
                         ch.pipeline()
                                 .addLast(new SelfDefineEncodeHandler())
-                                .addLast(new EchoClientHandler());
+                                .addLast(new EchoClientHandler1());
                         //TODO 待修改
                     }
                 });
