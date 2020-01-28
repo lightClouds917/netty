@@ -20,6 +20,7 @@ public class EchoClientHandler1 extends ChannelInboundHandlerAdapter {
 
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
+        LOGGER.info("EchoClientHandler1 has channelActive");
         Map<String,Object> map  = new HashMap<>(8);
         map.put("xid","xid10000");
         map.put("command","commit");
