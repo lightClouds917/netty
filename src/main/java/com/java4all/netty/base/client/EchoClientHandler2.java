@@ -4,8 +4,7 @@ import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 
 /**
- * @author wangzhongxiang
- * @date 2020年01月28日 22:24:26
+ * @author IT云清
  */
 public class EchoClientHandler2 extends SimpleChannelInboundHandler {
 
