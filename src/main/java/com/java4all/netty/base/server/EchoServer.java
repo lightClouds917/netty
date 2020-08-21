@@ -68,3 +68,5 @@ public class EchoServer implements InitializingBean{
     }
 
 }
+//1.连接池
+//2.client请求server端的方法，如何能被重复调用；
